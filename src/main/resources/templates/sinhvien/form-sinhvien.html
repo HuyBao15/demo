@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Form Sinh Viên</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <h1>Form Sinh Viên</h1>
+  <form th:action="@{/sinhvien}" th:object="${sinhVien}" method="post" enctype="multipart/form-data"
+        class="needs-validation" novalidate>
+    <p>Tên: <input type="text" th:field="*{ten}" /></p>
+    <p th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}" style="color: red;"></p>
+    <p>Tuổi: <input type="text" th:field="*{tuoi}" /></p>
+    <p th:if="${#fields.hasErrors('tuoi')}" th:errors="*{tuoi}" style="color: red;"></p>
+    <p>Khoa: <input type="text" th:field="*{khoa}" /></p>
+    <p th:if="${#fields.hasErrors('khoa')}" th:errors="*{khoa}" style="color: red;"></p>
+    <p>Avatar: <input type="file" name="avatar" accept="image/*" /></p>
+    <p><button type="submit">Submit</button></p>
+  </form>
+</section>
+
+</body>
+</html>
