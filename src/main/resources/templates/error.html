@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Error</title>
+</head>
+<body>
+<h1>404 NOT FOUND</h1>
+<p th:text="${errorMessage}">An error occurred</p>
+<a href="/products">Back to Products</a>
+</body>
+</html>
