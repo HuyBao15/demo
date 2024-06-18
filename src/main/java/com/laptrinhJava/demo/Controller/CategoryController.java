@@ -17,6 +17,7 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private final CategoryService categoryService;
+
     @GetMapping("/categories/add")
     public String showAddForm(Model model) {
         model.addAttribute("category", new Category());

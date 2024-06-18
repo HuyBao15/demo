@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 
 @Controller
@@ -104,5 +105,21 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
         return "redirect:/products";
+    }
+    @GetMapping("/search")
+    public String searchProduct(@RequestParam("keyword") String keyword,
+                                @RequestParam(value = "category", required = false) Long categoryId,
+                                @RequestParam(value = "categoryName", required = false) String categoryName,
+                                Model model) {
+        List<Product> searchResults;
+        if (categoryId != null) {
+            searchResults = productService.searchProductsByKeywordAndCategory(keyword, categoryId);
+        } else if (categoryName != null && !categoryName.isEmpty()) {
+            searchResults = productService.searchProductsByKeywordAndCategoryName(keyword, categoryName);
+        } else {
+            searchResults = productService.searchProducts(keyword);
+        }
+        model.addAttribute("products", searchResults);
+        return "products/product-list";
     }
 }

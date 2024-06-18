@@ -28,8 +28,7 @@ public class ProductService {
     // Update an existing product
     public Product updateProduct(@NotNull Product product) {
         Product existingProduct = productRepository.findById(product.getId())
-                .orElseThrow(() -> new IllegalStateException("Product with ID " +
-                        product.getId() + " does not exist."));
+                .orElseThrow(() -> new IllegalStateException("Product with ID " + product.getId() + " does not exist."));
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
@@ -42,5 +41,19 @@ public class ProductService {
             throw new IllegalStateException("Product with ID " + id + " does not exist.");
         }
         productRepository.deleteById(id);
+    }
+    public List<Product> searchProducts(String keyword) {
+        return productRepository.findByKeyword(keyword);
+    }
+    public List<Product> searchProductsByKeywordAndCategory(String keyword, Long categoryId) {
+        if (categoryId != null) {
+            return productRepository.findByKeywordAndCategory(keyword, categoryId);
+        } else {
+            return productRepository.findByKeyword(keyword);
+        }
+    }
+
+    public List<Product> searchProductsByKeywordAndCategoryName(String keyword, String categoryName) {
+        return productRepository.findByKeywordAndCategoryName(keyword, categoryName);
     }
 }
